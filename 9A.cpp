@@ -43,7 +43,7 @@ int divide(int a[], int n) {
 	elsa:
 	if (s % 2 != 0) {
 		int i = findOdd(a, 0, j);
-		j = i;
+		j = i+1;
 		so += a[i];
 		if (sum % n == 0)return so;
 		else goto elsa;
