@@ -1,15 +1,60 @@
-#include<iostream>
 #include<stdlib.h>
-#include<vector>
-using namespace std;
-bool find(string s, vector c);
+#include<math.h>
+#include<time.h>
+#include<iostream>
+//bool find(string s, vector c);
+int ms(int n, int m, int s)
+{
+	s = n;
+	if (s + 1 >= 5 && s + 1 % 2 != 0) m++;
+	else return m;
+	return ms(n - 2, m, s);
+}
+int is(int n, double i, double j, int iter)
+{
+	if (n == 1) return 1;
+	if (iter <= n) i += i * j;
+	else return i;
+	return is(n, i, j + 0.5, iter + 1);
+/*
+	if (n == 1) return 1;
+	if (iter <= n) i = i * j;
+	else return i;
+	return is(n, i + 1, j, iter + 1);
+	//todo add k before iteration ends
+	//when the iteration ends the increment will be added in increase() function
+	//so we need to increase by k from iter = 5 until iter = n - 2
+	//or we can add the total increments after finishing the recursion depending on m
+	//as if we have m = 5 then begin from m = 1 and add 
+	//3 ^ 2 * increment + 3 ^ 3 * increment + 3 ^ 4 * increment then add the last m on the increase() fn
+*/
+}
+int smp(int k, int l)
+{
+	if (l > 0)
+	{
+		k += pow(k, l);
+	}
+	else return k;
+	return smp(k, l - 1);
+}
+int increase(int n, int i, int m, int k)
+{
+	if (n + 1 % 2 != 0) m = ms(n, 0, 0);
+	k = smp(3, m);
+	i = is(n, 2, 1.5, 3);
+	i += k;
+	return i;
+}
 int main()
 {
 	clock_t begin = clock();
 	/////////////////////////
 	//YOLO
-	int n;
-	cin >> n;
+	int n = 0;
+	std::cin >> n;
+	std::cout << increase(n, 0, 0, 0);
+	/*
 	int j = 0;
 	bool tj = false;
 	int o = 4;
@@ -42,14 +87,15 @@ int main()
 			//throught the array of points, but you need to count if it takes more than 4 lines to complete
 			//the operation of drawing a path so you need to revert it back in a third loop
 	}
-	cout << j << endl;
+	cout << j << endl;*/
 	/////////////////////////
 	clock_t end = clock();
 	double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
-	cout << elapsed_secs << endl;
+	putchar_unlocked(elapsed_secs);
 
 	return 0;
 }
+/*
 //random pickup
 //restrictions
 //vector declaration instead of array
