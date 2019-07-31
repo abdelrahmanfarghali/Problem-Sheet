@@ -10,12 +10,23 @@ int ms(int n, int m, int s)
 	else return m;
 	return ms(n - 2, m, s);
 }
-int is(int n, double i, double j, int iter)
+int is(int n, int i, int iter)
 {
 	if (n == 1) return 1;
-	if (iter <= n) i += i * j;
-	else return i;
-	return is(n, i, j + 0.5, iter + 1);
+	if (iter <= n)
+	{
+		if(iter % 2 == 0)
+		{
+			i += i * 3;
+		}
+		else
+		{
+			i += i * 2;
+		}
+	}
+	//else if (n + 1 % 2 == 0) return i - 1;	//this if input is 2 or 3
+	else return i;	//this if input is 4
+	return is(n, i, iter + 1);	//we need to find a factor for 3, 6, 18, and 42
 /*
 	if (n == 1) return 1;
 	if (iter <= n) i = i * j;
@@ -29,21 +40,30 @@ int is(int n, double i, double j, int iter)
 	//3 ^ 2 * increment + 3 ^ 3 * increment + 3 ^ 4 * increment then add the last m on the increase() fn
 */
 }
-int smp(int k, int l)
+int smp(int k, int l, int iter)
 {
-	if (l > 0)
+	int n = 0;
+	int m = 0;
+	if (iter >= 4)
 	{
-		k += pow(k, l);
+		if (l % 2 == 0) k += pow(3, (l / 2) - 1);
+		else
+		{
+			m = pow(3, (l / 2) - 1);
+			m = m * 4;
+			k += m;
+		}
+		return smp(k, l, iter - 1);
 	}
-	else return k;
-	return smp(k, l - 1);
+	return k;
 }
 int increase(int n, int i, int m, int k)
 {
-	if (n + 1 % 2 != 0) m = ms(n, 0, 0);
-	k = smp(3, m);
-	i = is(n, 2, 1.5, 3);
-	i += k;
+	//if (n + 1 % 2 != 0) m = ms(n, 0, 0);
+	k = smp(k, n, n);
+	std::cout << k << std::endl;
+	i = is(n, i, i);
+	//i += k;
 	return i;
 }
 int main()
@@ -53,7 +73,7 @@ int main()
 	//YOLO
 	int n = 0;
 	std::cin >> n;
-	std::cout << increase(n, 0, 0, 0);
+	std::cout << increase(n, 1, 0, 0) - 1;
 	/*
 	int j = 0;
 	bool tj = false;
@@ -142,3 +162,5 @@ DA DBD C
 //hypnothesis: route = 1 * 2, 2 * 3, 3 * 4, 4 * 5 n = 2, 4, 5, 6 respectively
 ///////////////// important update //////////////////////////////////////////
 //this is a simple math problem path of size 5 got 42 paths path of size 3 got 6 paths
+///////////////// very important update /////////////////////////////////////
+//if n = even number then multiply by 3 if not multiply by 2
