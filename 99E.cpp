@@ -2,26 +2,28 @@
 #include<math.h>
 #include<time.h>
 #include<iostream>
-//bool find(string s, vector c);
-int ms(int n, int m, int s)
+//bool find(string s, vector c); (Done!)
+//finished work (Done!)
+/*int ms(int n, int m, int s)
 {
 	s = n;
 	if (s + 1 >= 5 && s + 1 % 2 != 0) m++;
 	else return m;
 	return ms(n - 2, m, s);
-}
+}*/
+//finished work (Done!)
 int is(int n, int i, int iter)
 {
-	if (n == 1) return 1;
-	if (iter <= n)
+	if (n == 1) return n;
+	if (iter < n)
 	{
 		if(iter % 2 == 0)
 		{
-			i += i * 3;
+			i = i * 2;
 		}
-		else
+		else if (iter % 2 != 0)
 		{
-			i += i * 2;
+			i = i * 3;
 		}
 	}
 	//else if (n + 1 % 2 == 0) return i - 1;	//this if input is 2 or 3
@@ -40,40 +42,37 @@ int is(int n, int i, int iter)
 	//3 ^ 2 * increment + 3 ^ 3 * increment + 3 ^ 4 * increment then add the last m on the increase() fn
 */
 }
+//finished work (Done!)
 int smp(int k, int l, int iter)
 {
-	int n = 0;
-	int m = 0;
-	if (iter >= 4)
+	if (l >= 4 && iter <= l)
 	{
-		if (l % 2 == 0) k += pow(3, (l / 2) - 1);
-		else
-		{
-			m = pow(3, (l / 2) - 1);
-			m = m * 4;
-			k += m;
-		}
-		return smp(k, l, iter - 1);
+		if (iter % 2 == 0) k = pow(3, (l / 2) - 1);
+		if (iter % 2 != 0) k = k * 2;
+		return smp(k, l, iter + 1);
 	}
-	return k;
+	else return k >= 0 ? k : 0;
 }
-int increase(int n, int i, int m, int k)
+//finished work (Done!)
+int increase(int n, int i, int k)
 {
-	//if (n + 1 % 2 != 0) m = ms(n, 0, 0);
-	k = smp(k, n, n);
-	std::cout << k << std::endl;
-	i = is(n, i, i);
-	//i += k;
+	//if (n + 1 % 2 != 0) m = ms(n, 0, 0); (deleted)
+	k = smp(k, n, 0);
+	//std::cout << k << std::endl;
+	i = is(n, i, 1);
+	//std::cout << i << std::endl;
+	i += k;
 	return i;
 }
+//finished work (Done!)
 int main()
 {
 	clock_t begin = clock();
 	/////////////////////////
 	//YOLO
-	int n = 0;
+	int n = 1;
 	std::cin >> n;
-	std::cout << increase(n, 1, 0, 0) - 1;
+	if (n > 1)std::cout << increase(n, 1, 0);
 	/*
 	int j = 0;
 	bool tj = false;
